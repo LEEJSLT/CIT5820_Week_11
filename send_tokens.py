@@ -18,8 +18,8 @@ min_balance = 100000 #https://developer.algorand.org/docs/features/accounts/#min
 
 def generate_account():
     sk, pk = algosdk.account.generate_account()
-    print("secret key:", sk)
-    print("public key:", pk)
+    print("sk:", sk)
+    print("pk:", pk)
     return sk, pk
 
 def send_tokens( receiver_pk, tx_amount ):
@@ -31,6 +31,8 @@ def send_tokens( receiver_pk, tx_amount ):
 
     #Your code here
     sk, pk = generate_account()
+    sk = 'im0WgwifTg2IBvCJOKPMbN3tTgVFdJFgsx/3Daw59+/g0hN9ZMsHylMfohEKtdTChX/agpu5cYtxnGFFdIHHnA=='
+    pk = '4DJBG7LEZMD4UUY7UIIQVNOUYKCX7WUCTO4XDC3RTRQUK5EBY6OB3CNRS4'
     sign = transaction.PaymentTxn(pk,tx_fee,first_valid_round,last_valid_round,gen_hash,receiver_pk,tx_amount).sign(sk)
     acl.send_transaction(sign)
     # txid = sign.transaction.get_txid()
