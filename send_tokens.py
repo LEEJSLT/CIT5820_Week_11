@@ -31,11 +31,11 @@ def send_tokens( receiver_pk, tx_amount ):
     sk, pk = generate_account()
     sign = transaction.PaymentTxn(pk,tx_fee,first_valid_round,last_valid_round,gen_hash,receiver_pk,tx_amount).sign(sk)
     acl.send_transaction(sign)
-    txid = sign.transaction.get_txid()
+    # txid = sign.transaction.get_txid()
 
     sender_pk = pk
 
-    return sender_pk, txid
+    return sender_pk, sign.transaction.get_txid()
 
 # Function from Algorand Inc.
 def wait_for_confirmation(client, txid):
