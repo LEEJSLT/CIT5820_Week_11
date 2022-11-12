@@ -18,6 +18,8 @@ min_balance = 100000 #https://developer.algorand.org/docs/features/accounts/#min
 
 def generate_account():
     sk, pk = algosdk.account.generate_account()
+    print("secret key:", sk)
+    print("public key:", pk)
     return sk, pk
 
 def send_tokens( receiver_pk, tx_amount ):
