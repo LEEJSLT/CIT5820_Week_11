@@ -17,10 +17,10 @@ acl = algod.AlgodClient(algod_token, algod_address, headers)
 min_balance = 100000 #https://developer.algorand.org/docs/features/accounts/#minimum-balance
 
 def generate_account():
-    sk, pk = algosdk.account.generate_account()
-    print("private key:", sk)
-    print("address:", pk)
-    return sk, pk
+    private_key, address = algosdk.account.generate_account()
+    print("private key:", private_key)
+    print("address:", address)
+    return private_key, address
 
 def send_tokens( receiver_pk, tx_amount ):
     params = acl.suggested_params()
@@ -30,10 +30,10 @@ def send_tokens( receiver_pk, tx_amount ):
     last_valid_round = params.last
 
     #Your code here
-    sk, pk = generate_account()
-    sk = 'im0WgwifTg2IBvCJOKPMbN3tTgVFdJFgsx/3Daw59+/g0hN9ZMsHylMfohEKtdTChX/agpu5cYtxnGFFdIHHnA=='
-    pk = '4DJBG7LEZMD4UUY7UIIQVNOUYKCX7WUCTO4XDC3RTRQUK5EBY6OB3CNRS4'
-    sign = transaction.PaymentTxn(pk,tx_fee,first_valid_round,last_valid_round,gen_hash,receiver_pk,tx_amount).sign(sk)
+    # private_key, address = generate_account()
+    private_key = 'im0WgwifTg2IBvCJOKPMbN3tTgVFdJFgsx/3Daw59+/g0hN9ZMsHylMfohEKtdTChX/agpu5cYtxnGFFdIHHnA=='
+    address = '4DJBG7LEZMD4UUY7UIIQVNOUYKCX7WUCTO4XDC3RTRQUK5EBY6OB3CNRS4'
+    sign = algosdk.future.transaction(address,tx_fee,first_valid_round,last_valid_round,gen_hash,receiver_pk,tx_amount).sign(private_key)
     acl.send_transaction(sign)
     # txid = sign.transaction.get_txid()
 
