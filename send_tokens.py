@@ -33,11 +33,21 @@ def send_tokens( receiver_pk, tx_amount ):
     sk, pk = generate_account()
     sk = 'im0WgwifTg2IBvCJOKPMbN3tTgVFdJFgsx/3Daw59+/g0hN9ZMsHylMfohEKtdTChX/agpu5cYtxnGFFdIHHnA=='
     pk = '4DJBG7LEZMD4UUY7UIIQVNOUYKCX7WUCTO4XDC3RTRQUK5EBY6OB3CNRS4'
+    # sign = transaction.PaymentTxn(pk,tx_fee,first_valid_round,last_valid_round,gen_hash,receiver_pk,tx_amount).sign(sk)
+    # acl.send_transaction(sign)
+    # # txid = sign.transaction.get_txid()
+
+    # sender_pk = pk
+
+    # return sender_pk, sign.transaction.get_txid()
+    # Pay our account - sign the transaction
     sign = transaction.PaymentTxn(pk,tx_fee,first_valid_round,last_valid_round,gen_hash,receiver_pk,tx_amount).sign(sk)
+
+    # Sending a transaction to the Testnet - send the payment
     acl.send_transaction(sign)
-    # txid = sign.transaction.get_txid()
 
     sender_pk = pk
+    #txid = sign.transaction.get_txid()
 
     return sender_pk, sign.transaction.get_txid()
 
