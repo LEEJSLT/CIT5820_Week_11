@@ -41,7 +41,7 @@ def send_tokens( receiver_pk, tx_amount ):
     txid = acl.send_transaction(sign)
     # txid = sign.transaction.get_txid()
 
-    sender_pk = pk
+    sender_pk = address
 
     return sender_pk, txid
 
