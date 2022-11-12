@@ -33,13 +33,17 @@ def send_tokens( receiver_pk, tx_amount ):
     # private_key, address = generate_account()
     private_key = 'im0WgwifTg2IBvCJOKPMbN3tTgVFdJFgsx/3Daw59+/g0hN9ZMsHylMfohEKtdTChX/agpu5cYtxnGFFdIHHnA=='
     address = '4DJBG7LEZMD4UUY7UIIQVNOUYKCX7WUCTO4XDC3RTRQUK5EBY6OB3CNRS4'
-    sign = algosdk.future.transaction.PaymentTxn(address,tx_fee,first_valid_round,last_valid_round,gen_hash,receiver_pk,tx_amount).sign(private_key)
-    acl.send_transaction(sign)
+    mnemonic_secret = mnemonic.from_private_key(private_key)
+    sk = mnemonic.to_private_key(mnemonic_secret)
+    pk = mnemonic.to_public_key(mnemonic_secret)
+
+    sign = transaction.PaymentTxn(address,tx_fee,first_valid_round,last_valid_round,gen_hash,receiver_pk,tx_amount).sign(private_key)
+    txid = acl.send_transaction(sign)
     # txid = sign.transaction.get_txid()
 
     sender_pk = pk
 
-    return sender_pk, sign.transaction.get_txid()
+    return sender_pk, txid
 
 
 # Function from Algorand Inc.
