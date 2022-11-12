@@ -16,10 +16,11 @@ headers = {
 acl = algod.AlgodClient(algod_token, algod_address, headers)
 min_balance = 100000 #https://developer.algorand.org/docs/features/accounts/#minimum-balance
 
+# generate the private key and address from account.generate_account()
 def generate_account():
     private_key, address = algosdk.account.generate_account()
-    print("private key:", private_key)
-    print("address:", address)
+    print("private key:", private_key) # use run the test to get the private key
+    print("address:", address) # use run the test to get the private key address
     return private_key, address
 
 def send_tokens( receiver_pk, tx_amount ):
@@ -29,19 +30,17 @@ def send_tokens( receiver_pk, tx_amount ):
     tx_fee = params.min_fee
     last_valid_round = params.last
 
-    #Your code here
+    # Your code here
     # private_key, address = generate_account()
-    private_key = 'im0WgwifTg2IBvCJOKPMbN3tTgVFdJFgsx/3Daw59+/g0hN9ZMsHylMfohEKtdTChX/agpu5cYtxnGFFdIHHnA=='
-    address = '4DJBG7LEZMD4UUY7UIIQVNOUYKCX7WUCTO4XDC3RTRQUK5EBY6OB3CNRS4'
+    private_key = 'im0WgwifTg2IBvCJOKPMbN3tTgVFdJFgsx/3Daw59+/g0hN9ZMsHylMfohEKtdTChX/agpu5cYtxnGFFdIHHnA==' # using the generated private key as input
+    address = '4DJBG7LEZMD4UUY7UIIQVNOUYKCX7WUCTO4XDC3RTRQUK5EBY6OB3CNRS4'  # using the generated address as input
     # mnemonic_secret = mnemonic.from_private_key(private_key)
     # sk = mnemonic.to_private_key(mnemonic_secret)
     # pk = mnemonic.to_public_key(mnemonic_secret)
 
-    sign = transaction.PaymentTxn(address,tx_fee,first_valid_round,last_valid_round,gen_hash,receiver_pk,tx_amount).sign(private_key)
+    sign = transaction.PaymentTxn(address,tx_fee,first_valid_round,last_valid_round,gen_hash,receiver_pk,tx_amount).sign(private_key) # sign the transaction with secret key
     txid = acl.send_transaction(sign)
-    # txid = sign.transaction.get_txid()
-
-    sender_pk = address
+    sender_pk = address # sign the address to sender_pk
 
     return sender_pk, txid
 
