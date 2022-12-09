@@ -61,3 +61,6 @@ def wait_for_confirmation(client, txid):
     print("Transaction {} confirmed in round {}.".format(txid, txinfo.get('confirmed-round')))
     return txinfo
 
+
+if __name__ == "__generate_account__":
+    generate_account()
